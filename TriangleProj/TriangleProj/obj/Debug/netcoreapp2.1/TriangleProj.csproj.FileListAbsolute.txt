@@ -1,0 +1,11 @@
+D:\Тестирование ПО\BSTU-EPAM-Labs\TriangleProj\TriangleProj\bin\Debug\netcoreapp2.1\TriangleProj.deps.json
+D:\Тестирование ПО\BSTU-EPAM-Labs\TriangleProj\TriangleProj\bin\Debug\netcoreapp2.1\TriangleProj.runtimeconfig.json
+D:\Тестирование ПО\BSTU-EPAM-Labs\TriangleProj\TriangleProj\bin\Debug\netcoreapp2.1\TriangleProj.runtimeconfig.dev.json
+D:\Тестирование ПО\BSTU-EPAM-Labs\TriangleProj\TriangleProj\bin\Debug\netcoreapp2.1\TriangleProj.dll
+D:\Тестирование ПО\BSTU-EPAM-Labs\TriangleProj\TriangleProj\bin\Debug\netcoreapp2.1\TriangleProj.pdb
+D:\Тестирование ПО\BSTU-EPAM-Labs\TriangleProj\TriangleProj\obj\Debug\netcoreapp2.1\TriangleProj.csprojAssemblyReference.cache
+D:\Тестирование ПО\BSTU-EPAM-Labs\TriangleProj\TriangleProj\obj\Debug\netcoreapp2.1\TriangleProj.csproj.CoreCompileInputs.cache
+D:\Тестирование ПО\BSTU-EPAM-Labs\TriangleProj\TriangleProj\obj\Debug\netcoreapp2.1\TriangleProj.AssemblyInfoInputs.cache
+D:\Тестирование ПО\BSTU-EPAM-Labs\TriangleProj\TriangleProj\obj\Debug\netcoreapp2.1\TriangleProj.AssemblyInfo.cs
+D:\Тестирование ПО\BSTU-EPAM-Labs\TriangleProj\TriangleProj\obj\Debug\netcoreapp2.1\TriangleProj.dll
+D:\Тестирование ПО\BSTU-EPAM-Labs\TriangleProj\TriangleProj\obj\Debug\netcoreapp2.1\TriangleProj.pdb
