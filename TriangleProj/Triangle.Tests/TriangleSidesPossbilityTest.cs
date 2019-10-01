@@ -9,50 +9,35 @@ namespace Tests
         public void Setup()
         {
         }
-        //data provider
-        [TestCase(0)]
-        [TestCase(-5)]
-        public void SideACannotGetZeroAndLess(int value)
+
+        private static readonly int[][] ZeroSides = {
+            new int[] { 0, 1, 2 },
+            new int[] { 1, 0, 2 },
+            new int[] { 2, 1, 0 }
+        };
+
+        private static readonly int[][] NegativeSides = {
+            new int[] { -1, 1, 2 },
+            new int[] { 1, -2, 2 },
+            new int[] { 2, 1, -3 }
+        };
+
+        private static readonly int[][] InconsistentWithInequalitySides = {
+            new int[] { 1, 1, 10 },
+            new int[] { 9, 3, 2 },
+            new int[] { 2, 15, 5 }
+        };
+
+        [TestCaseSource("ZeroSides"), TestCaseSource("NegativeSides"), TestCaseSource("InconsistentWithInequalitySides")]
+        public void SidesNotValid(int a, int b, int c)
         {
-            Assert.IsFalse(Triangle.CheckIsPossibleToCreate(value, 1, 2));
+            Assert.IsFalse(Triangle.CheckIsPossibleToCreate(a, b, c));
         }
 
-        [TestCase(0)]
-        [TestCase(-5)]
-        public void SideBCannotGetZeroAndLess(int value)
+        [TestCase(2, 4, 3)]
+        public void SidesValid(int a, int b, int c)
         {
-            Assert.IsFalse(Triangle.CheckIsPossibleToCreate(1, value, 2));
-        }
-
-        [TestCase(0)]
-        [TestCase(-5)]
-        public void SideCCannotGetZeroAndLess(int value)
-        {
-            Assert.IsFalse(Triangle.CheckIsPossibleToCreate(3, 1, value));
-        }
-
-        [Test]
-        public void SideANotLessBAndCSum()
-        {
-            Assert.IsFalse(Triangle.CheckIsPossibleToCreate(4, 1, 3));
-        }
-
-        [Test]
-        public void SideBNotLessCAndASum()
-        {
-            Assert.IsFalse(Triangle.CheckIsPossibleToCreate(1, 4, 3));
-        }
-
-        [Test]
-        public void SideCNotLessBAndASum()
-        {
-            Assert.IsFalse(Triangle.CheckIsPossibleToCreate(3, 4, 1));
-        }
-
-        [Test]
-        public void TrueSides()
-        {
-            Assert.IsTrue(Triangle.CheckIsPossibleToCreate(1, 1, 1));
+            Assert.IsTrue(Triangle.CheckIsPossibleToCreate(a, b, c));
         }
     }
 }
