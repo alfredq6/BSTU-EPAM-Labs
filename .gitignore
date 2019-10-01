@@ -7,7 +7,6 @@
 target/
 bin/
 
-
 # User-specific files
 *.suo
 *.user
@@ -70,6 +69,7 @@ artifacts/
 *.tmp
 *.tmp_proj
 *.log
+
 *.vspscc
 *.vssscc
 .builds
