@@ -15,7 +15,7 @@ namespace Tests
         }
 
         [Test]
-        public void CheckRegistrationWithEmptyFields()
+        public void CheckFindingRoutesWithEmptyFields()
         {
             var whereFrom_inputField = GetWebElement(".//*[@id='TP-departureStation']");
             whereFrom_inputField.SendKeys("some text");
