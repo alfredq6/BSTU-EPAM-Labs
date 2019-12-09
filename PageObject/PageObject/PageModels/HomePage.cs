@@ -18,7 +18,16 @@ namespace PageObjectLab.PageModels
         [FindsBy(How = How.Id, Using = "TP-outboundTime")]
         public IWebElement TimePicker;
 
-        
+        [FindsBy(How = How.XPath, Using = ".//*[@class='row travel-planner-container']/div[1]/form[1]/div[1]/div[3]/div[4]/button")]
+        public IWebElement ViewDepartureButton;
+
+        [FindsBy(How = How.XPath, Using = ".//*[@class='row travel-planner-container']/div[1]/form[1]/div[1]/div[3]/div[2]/span[1]/span[1]/span[1]/div[2]/div[1]/div[3]/button")]
+        public IWebElement NextMonthButton;
+
+
+        [FindsBy(How = How.Id, Using = ".//*[@id='TP-outboundTime']/option")]
+        public IWebElement MidnightTimePicker;
+
         public HomePage(IWebDriver driver) : base(driver) { }
 
         public void OpenCalendar()
@@ -41,21 +50,10 @@ namespace PageObjectLab.PageModels
             return GetWebElement($".//*[@class='allDays']//button[text()='{DateTime.Now.AddDays(1).Day}']");
         }
 
-        public IWebElement GetMidnightTime()
-        {
-            return GetWebElement(".//*[@id='TP-outboundTime']/option");
-        }
-
-        public IWebElement GetSubmitButton()
-        {
-            return GetWebElement(".//*[@class='_bcaf5336 _d49aa3d6']");
-        }
-
         public void SwitchToLastMonthToChoose()
         {
-            var nexMonthButton = GetWebElement(".//*[@class='_65dc714d']");
             for (int i = 0; i < 4; i++)
-                nexMonthButton.Click();
+                NextMonthButton.Click();
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using SeleniumExtras.PageObjects;
 
 namespace PageObjectLab.PageModels
 {
@@ -6,14 +7,11 @@ namespace PageObjectLab.PageModels
     {
         public DeparturiesViewPage(IWebDriver driver) : base(driver) { }
 
-        public IWebElement GetEarlierDeparture()
-        {
-            return GetWebElement(".//*[@class='itinerary-list-item'][1]/button");
-        }
+        [FindsBy(How = How.XPath, Using = ".//*[@class='itinerary-list-item'][1]/button")]
+        public IWebElement EarlierDeparture;
 
-        public IWebElement GetDeparturePassedMessage()
-        {
-            return GetWebElement(".//*[@class='itinerary-list-item itinerary-list-item--open']/div[1]/div[2]/p[1]");
-        }
+        [FindsBy(How = How.XPath, Using = ".//*[@class='itinerary-list-item itinerary-list-item--open']/div[1]/div[2]/p[1]")]
+        public IWebElement DeparturePassedMessage;
+        
     }
 }

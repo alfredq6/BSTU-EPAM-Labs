@@ -34,15 +34,11 @@ namespace PageObjectLab.Tests
             var homePage = new HomePage(_webDriver);
             var departuriesViewPage = new DeparturiesViewPage(_webDriver);
             homePage.OpenTimePicker();
-            var midnight = homePage.GetMidnightTime();
-            midnight.Click();
-            var submitBtn = homePage.GetSubmitButton();
-            submitBtn.Click();
-            System.Threading.Thread.Sleep(3000);
-            var firstDeparture = departuriesViewPage.GetEarlierDeparture();
-            firstDeparture.Click();
-            var departurePassedMessage = departuriesViewPage.GetDeparturePassedMessage();
-            Assert.IsTrue(departurePassedMessage.Displayed && departurePassedMessage.Text.Contains("Departure time passed"));
+            homePage.MidnightTimePicker.Click();
+            homePage.ViewDepartureButton.Click();
+            //System.Threading.Thread.Sleep(3000);
+            departuriesViewPage.EarlierDeparture.Click();
+            Assert.IsTrue(departuriesViewPage.DeparturePassedMessage.Displayed && departuriesViewPage.DeparturePassedMessage.Text.Contains("Departure time passed"));
         }
 
         private bool isEnable(IWebElement element)
