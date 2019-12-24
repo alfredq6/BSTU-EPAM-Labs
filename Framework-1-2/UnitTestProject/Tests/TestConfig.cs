@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using Framework.Driver;
+using Framework.Logging;
 using Framework.Pages;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
@@ -17,9 +18,13 @@ namespace Framework.Tests
         [SetUp]
         public void Setter()
         {
+            Logger.InitLogger();
             Driver = DriverSingleton.GetDriver();
             Driver.Navigate().GoToUrl("https://www.vy.no/en");
             mainPage = new MainPage(Driver);
+
+            Logger.Log.Debug("Navigated to https://www.vy.no/en");
+            Logger.Log.Debug("Start test: " + TestContext.CurrentContext.Test.Name + "...");
         }
 
         [TearDown]
@@ -32,8 +37,11 @@ namespace Framework.Tests
                 var screen = ((ITakesScreenshot)Driver).GetScreenshot();
                 screen.SaveAsFile(screenFolder + @"\screen" + DateTime.Now.ToString("yy-MM-dd_hh-mm-ss") + ".png",
                     ScreenshotImageFormat.Png);
+                Logger.Log.Error("Error: " + TestContext.CurrentContext.Result.Message);
             }
+            Logger.Log.Info("Test completed");
             DriverSingleton.CloseDriver();
+            Logger.Log.Info("Driver closed");
         }
     }
 }
