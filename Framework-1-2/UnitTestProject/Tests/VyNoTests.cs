@@ -20,7 +20,7 @@ namespace Framework.Tests
             mainPage.OpenCalendar();
             var nextFourMonth = mainPage.GetFourthMonthInFuture();
 
-            Assert.IsTrue(nextFourMonth.Text.Contains("Travel suggestions are available 120 days prior to departure. Tickets are available 90 days prior to departure."));
+            Assert.IsTrue(nextFourMonth.Text.Contains("Trains are scheduled ca. 90 days before departure. Unscheduled trains are not available for search."));
         }
 
         [Test]

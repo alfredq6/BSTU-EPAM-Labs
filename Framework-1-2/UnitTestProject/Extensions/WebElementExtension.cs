@@ -11,7 +11,7 @@ namespace UnitTestProject.Extensions
     {
         public static bool IsDayDisabled(this IWebElement btn)
         {
-            return btn.GetCssValue("color").Contains("#D2D4D2") || btn.GetCssValue("color").Contains("rgba(210, 212, 210, 1)") || btn.GetCssValue("color").Contains("rgb(210, 212, 210)");
+            return btn.GetCssValue("color").Contains("#888B8E") || btn.GetCssValue("color").Contains("rgba(136, 139, 142, 1)") || btn.GetCssValue("color").Contains("rgb(136, 139, 142)");
         }
 
         public static bool IsButtonDisabled(this IWebElement btn)

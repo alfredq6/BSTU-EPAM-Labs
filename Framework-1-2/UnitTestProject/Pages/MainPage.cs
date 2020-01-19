@@ -37,7 +37,7 @@ namespace Framework.Pages
         [FindsBy(How = How.XPath, Using = ".//*[@class='row travel-planner-container']/div[1]/form[1]/div[1]/div[3]/div[4]/button")]
         public IWebElement ViewDepartureButton { get; set; }
 
-        [FindsBy(How = How.XPath, Using = ".//*[@class='row travel-planner-container']/div[1]/form[1]/div[1]/div[3]/div[2]/span[1]/span[1]/span[1]/div[2]/div[1]/div[3]/button")]
+        [FindsBy(How = How.XPath, Using = ".//*[@class='row travel-planner-container']/div[1]/form[1]/div[1]/div[3]/div[2]/span[1]/span[1]/div[1]/div[2]/div[1]/div[2]/button")]
         public IWebElement NextMonthButton { get; set; }
 
         [FindsBy(How = How.XPath, Using = ".//*[@id='center']/div[1]/div[2]/div[1]/form[1]/div[1]/div[3]/div[3]/ul[1]/li[1]/span[1]/button[2]")]
@@ -143,7 +143,7 @@ namespace Framework.Pages
         public IWebElement GetFourthMonthInFuture()
         {
             NextMonthButton.Click(4);
-            return GetWebElement($".//*[@class='row travel-planner-container']/div[1]/form[1]/div[1]/div[3]/div[2]/span[1]/span[1]/span[1]/div[2]/div[2]");
+            return GetWebElement($".//*[@class='row travel-planner-container']/div[1]/form[1]/div[1]/div[3]/div[2]/span[1]/span[1]/div[1]/div[2]/div[2]");
         }
 
         public IWebElement GetYesterday()
