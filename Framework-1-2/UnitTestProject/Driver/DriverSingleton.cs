@@ -1,9 +1,9 @@
 ﻿using NUnit.Framework;
+using WebDriverManager;
+using WebDriverManager.DriverConfigs.Impl;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
-using WebDriverManager;
-using WebDriverManager.DriverConfigs.Impl;
 
 namespace Framework.Driver
 {
