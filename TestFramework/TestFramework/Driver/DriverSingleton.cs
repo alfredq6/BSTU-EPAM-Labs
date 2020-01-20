@@ -19,13 +19,13 @@ namespace TestFramework.Driver
             {
                 switch (TestContext.Parameters.Get("browser"))
                 {
-                    case "Chrome":
-                        new DriverManager().SetUpDriver(new ChromeConfig());
-                        driver = new ChromeDriver();
-                        break;
-                    default:
+                    case "Edge":
                         new DriverManager().SetUpDriver(new EdgeConfig());
                         driver = new EdgeDriver();
+                        break;
+                    default:
+                        new DriverManager().SetUpDriver(new ChromeConfig());
+                        driver = new ChromeDriver();
                         break;
                 }
                 driver.Manage().Window.Maximize();
