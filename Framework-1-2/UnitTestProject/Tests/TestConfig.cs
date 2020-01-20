@@ -12,7 +12,7 @@ namespace Framework.Tests
 {
     public class TestConfig
     {
-        protected IWebDriver Driver { get; set; }
+        protected IWebDriver Driver;
         protected MainPage mainPage;
 
         [SetUp]
