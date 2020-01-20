@@ -2,6 +2,8 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Edge;
+using WebDriverManager;
+using WebDriverManager.DriverConfigs.Impl;
 
 namespace Framework.Driver
 {
@@ -18,9 +20,11 @@ namespace Framework.Driver
                 switch (TestContext.Parameters.Get("browser"))
                 {
                     case "Chrome":
+                        new DriverManager().SetUpDriver(new ChromeConfig());
                         driver = new ChromeDriver();
                         break;
                     default:
+                        new DriverManager().SetUpDriver(new EdgeConfig());
                         driver = new EdgeDriver();
                         break;
                 }

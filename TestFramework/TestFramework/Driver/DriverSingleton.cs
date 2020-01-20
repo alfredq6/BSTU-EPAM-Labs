@@ -1,37 +1,33 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using OpenQA.Selenium.Edge;
 using WebDriverManager;
 using WebDriverManager.DriverConfigs.Impl;
 
-namespace TestFramework.DriverSingleton
+namespace TestFramework.Driver
 {
-    public class Driver
+    class DriverSingleton
     {
-        private static IWebDriver driver;
+        static IWebDriver driver;
+
+        private DriverSingleton() { }
 
         public static IWebDriver GetDriver()
         {
-            if(driver == null)
+            if (driver == null)
             {
                 switch (TestContext.Parameters.Get("browser"))
                 {
-                    case "Firefox":
-                        new DriverManager().SetUpDriver(new FirefoxConfig());
-                        driver = new FirefoxDriver();
-                        break;
-                    default:
+                    case "Chrome":
                         new DriverManager().SetUpDriver(new ChromeConfig());
                         driver = new ChromeDriver();
                         break;
+                    default:
+                        new DriverManager().SetUpDriver(new EdgeConfig());
+                        driver = new EdgeDriver();
+                        break;
                 }
-                driver.Manage().Timeouts().ImplicitWait.Add(TimeSpan.FromSeconds(30));
                 driver.Manage().Window.Maximize();
             }
             return driver;
@@ -42,6 +38,5 @@ namespace TestFramework.DriverSingleton
             driver.Quit();
             driver = null;
         }
-        
     }
 }

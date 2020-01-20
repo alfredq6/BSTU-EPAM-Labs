@@ -1,46 +1,46 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using TestFramework.DriverSingleton;
-using System.Threading.Tasks;
+﻿using System;
 using System.IO;
-using OpenQA.Selenium.Support.Extensions;
-using NUnit.Framework.Interfaces;
+using TestFramework.Driver;
 using TestFramework.Logging;
+using TestFramework.Pages;
+using NUnit.Framework;
+using NUnit.Framework.Interfaces;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.Extensions;
 
 namespace TestFramework.Tests
 {
-    class TestConfig
+    public class TestConfig
     {
-        protected IWebDriver driver;
+        protected IWebDriver Driver;
+        protected MainPage mainPage;
 
         [SetUp]
-        public void Initialization()
+        public void Setter()
         {
             Logger.InitLogger();
-            driver = Driver.GetDriver();
-            driver.Navigate().GoToUrl("https://www.internationalrail.com");
-            Logger.Log.Debug("Navigated to https://www.internationalrail.com");
-            Logger.Log.Debug("Starting test:" + TestContext.CurrentContext.Test.Name + "...");
+            Driver = DriverSingleton.GetDriver();
+            Driver.Navigate().GoToUrl("https://www.vy.no/en");
+            mainPage = new MainPage(Driver);
+
+            Logger.Log.Debug("Navigated to https://www.vy.no/en");
+            Logger.Log.Debug("Start test: " + TestContext.CurrentContext.Test.Name + "...");
         }
 
-        [OneTimeTearDown]
-        public void TimeTearDown()
+        [TearDown]
+        public void TearDown()
         {
-            if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
+            if(TestContext.CurrentContext.Result.Outcome!=ResultState.Success)
             {
                 string screenFolder = AppDomain.CurrentDomain.BaseDirectory + @"\screens";
                 Directory.CreateDirectory(screenFolder);
-                var screen = driver.TakeScreenshot();
+                var screen = ((ITakesScreenshot)Driver).GetScreenshot();
                 screen.SaveAsFile(screenFolder + @"\screen" + DateTime.Now.ToString("yy-MM-dd_hh-mm-ss") + ".png",
                     ScreenshotImageFormat.Png);
-                Logger.Log.Error("Error:" + TestContext.CurrentContext.Result.Message);
+                Logger.Log.Error("Error: " + TestContext.CurrentContext.Result.Message);
             }
-            Logger.Log.Info("Test complete");
-            Driver.CloseDriver();
+            Logger.Log.Info("Test completed");
+            DriverSingleton.CloseDriver();
             Logger.Log.Info("Driver closed");
         }
     }

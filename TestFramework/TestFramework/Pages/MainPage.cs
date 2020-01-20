@@ -1,169 +1,157 @@
-﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.PageObjects;
-using OpenQA.Selenium.Support.UI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using TestFramework.Models;
+﻿using TestFramework.Models;
 using TestFramework.Services;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.PageObjects;
+using TestFramework.Extensions;
 
 namespace TestFramework.Pages
 {
-    class MainPage
+    public class MainPage : AbstractPage
     {
-        private IWebDriver driver;
+        [FindsBy(How = How.Id, Using = "TP-departureStation")]
+        public IWebElement DepartureCity { get; set; }
 
-        [FindsBy(How = How.Name, Using = "ctl00$MainContent$ucLoyaltyCart$txtFrom")]
-        private IWebElement cityFrom;
+        [FindsBy(How = How.Id, Using = "TP-arrivalStation")]
+        public IWebElement ArrivalCity { get; set; }
 
-        [FindsBy(How = How.Name, Using = "ctl00$MainContent$ucLoyaltyCart$txtTo")]
-        private IWebElement cityTo;
+        [FindsBy(How = How.XPath, Using = ".//*[@id='submitTravelPlanner']/h2")]
+        public IWebElement DepartureErrorMessage { get; set; }
 
-        [FindsBy(How = How.Name, Using = "ctl00$MainContent$ucLoyaltyCart$txtDepartureDate")]
-        private IWebElement datePicker;
+        [FindsBy(How = How.XPath, Using = ".//*[@id='center']/div[1]/div[2]/div[1]/form[1]/div[1]/div[3]/div[3]/ul[1]/li[1]/span[1]/button[2]")]
+        public IWebElement AdultIncrementButton { get; set; }
 
-        [FindsBy(How = How.Name, Using = "ctl00$MainContent$ucLoyaltyCart$txtReturnDate")]
-        private IWebElement returnDatePicker;
+        [FindsBy(How = How.Id, Using = "TP-errorAdult")]
+        public IWebElement ErrorAdultMessage { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//a[contains(text(),'27')]")]
-        private IWebElement currentDate;
+        [FindsBy(How = How.Id, Using = ".//*[@id='TP-outboundTime']/option[1]")]
+        public IWebElement MidnightTimePicker { get; set; }
 
-        [FindsBy(How = How.Id, Using = "MainContent_ucLoyaltyCart_btnCheckout")]
-        private IWebElement searchButton;
+        [FindsBy(How = How.Id, Using = "TP-departureDatePickerIDStage1")]
+        public IWebElement CalendarInput { get; set; }
 
-        [FindsBy(How = How.Name, Using = "ctl00$MainContent$ucLoyaltyCart$ddlAdult")]
-        private IWebElement adultSelector;
+        [FindsBy(How = How.Id, Using = "TP-outboundTime")]
+        public IWebElement TimePicker { get; set; }
 
-        [FindsBy(How = How.Name, Using = "ctl00$MainContent$ucLoyaltyCart$ddlChild")]
-        private IWebElement childrenSelector;
+        [FindsBy(How = How.XPath, Using = ".//*[@class='row travel-planner-container']/div[1]/form[1]/div[1]/div[3]/div[4]/button")]
+        public IWebElement ViewDepartureButton { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//a[contains(@class,'ui-datepicker-next ui-corner-all')]")]
-        private IWebElement nextMonth;
+        [FindsBy(How = How.XPath, Using = ".//*[@class='row travel-planner-container']/div[1]/form[1]/div[1]/div[3]/div[2]/span[1]/span[1]/div[1]/div[2]/div[1]/div[2]/button")]
+        public IWebElement NextMonthButton { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//*[@id='MainContent_ucLoyaltyCart_pnlPassenger']/div[2]/p[1]")]
-        private IWebElement errorMessage;
+        [FindsBy(How = How.XPath, Using = ".//*[@id='center']/div[1]/div[2]/div[1]/form[1]/div[1]/div[3]/div[3]/ul[1]/li[1]/span[1]/button[2]")]
+        public IWebElement IncrementPassangersNumberButton { get; set; }
 
-        [FindsBy(How = How.XPath, Using = "//table[@id='MainContent_ucLoyaltyCart_rdBookingType']//label[contains(text(),'Return')]")]
-        private IWebElement returnButton;
+        [FindsBy(How = How.Id, Using = "TP-errorAdult")]
+        public IWebElement IncrementPassangersErrorMessage { get; set; }
 
-        private By errorMesageLocator = By.XPath("//*[@id='MainContent_ucLoyaltyCart_pnlPassenger']/div[2]/p[1]");
+        [FindsBy(How = How.Id, Using = "addCustomerCardButton")]
+        public IWebElement AddCustomerCardButton { get; set; }
 
-        private By returnDatePickerLocator = By.Name("ctl00$MainContent$ucLoyaltyCart$txtReturnDate");
+        [FindsBy(How = How.Id, Using = "customerCardField1")]
+        public IWebElement CustomerCardInput { get; set; }
 
-        private By currentDateLocator = By.XPath("//a[contains(text(),'27')]");
+        [FindsBy(How = How.Id, Using = "customerCardField1ErrorMessage")]
+        public IWebElement CustomerCardField1ErrorMessage { get; set; }
 
-        private By buttonLocator = By.Id("MainContent_ucLoyaltyCart_btnCheckout");
+        [FindsBy(How = How.Id, Using = "submitTravelPlanner")]
+        public IWebElement SubmitTravelPlannerMessages { get; set; }
 
-        private By datePickerLocator = By.Name("ctl00$MainContent$ucLoyaltyCart$txtDepartureDate");
-
-        private By bindLocator = By.Id("_bindDivData");
-
-        public MainPage(IWebDriver driver)
+        public Route route { get; set; }
+        public MainPage(IWebDriver driver) : base(driver)
         {
-            PageFactory.InitElements(driver, this);
-            this.driver = driver;
-
-        }
-
-        public MainPage InputCity(SearchForm searchForm)
-        {
-            cityFrom.SendKeys("");
-            cityFrom.SendKeys(searchForm.FromCity);
-            cityTo.SendKeys("");
-            cityTo.SendKeys(searchForm.ToCity);
-            return this;
-        }
-
-        public MainPage SetPassengers(SearchForm searchForm)
-        {
-            new SelectElement(adultSelector).SelectByValue(searchForm.NumberOfAdults);
-            new SelectElement(childrenSelector).SelectByValue(searchForm.NumberOfChildren);
-            return this;
-        }
-
-        public MainPage WaitModalWindow()
-        {
-            Helper.WaitElementIsVisible(driver, errorMesageLocator, 10);
-            return this;
         }
         
-        public MainPage InputDateEigthMonthsAdvance(int mountCount)
+        public void OpenTimePicker()
         {
-            datePicker.Click();
-            for (int i = 0; i < mountCount; i++)
-                nextMonth.Click();
-            currentDate.Click();
-            return this;
+            FillRouteWithoutDate();
+            Body.Click(2);
+            TimePicker.Click();
         }
 
-        public MainPage InputDateDefaultValues()
+        public void FillRouteWithoutDate()
         {
-            Helper.ScrollToValue(driver, 500);
-            Helper.WaitInvisibilityOfElement(driver, bindLocator, 15);
-            datePicker.Click();
-            currentDate.Click();
-            return this;
+            route = RouteCreator.WithoutDate();
+            DepartureCity.SendKeys(route.DepartureCity);
+            ArrivalCity.SendKeys(route.ArrivalCity);
         }
 
-        public MainPage InputDateDefaultValuesForReturn()
+        public void FillRoute()
         {
-            Helper.WaitElementToBeClickable(driver, returnDatePickerLocator, 60);
-            datePicker.Click();
-            currentDate.Click();
-            return this;
+            route = RouteCreator.WithAllProperties();
+            DepartureCity.SendKeys(route.DepartureCity);
+            ArrivalCity.SendKeys(route.ArrivalCity);
+            Body.Click(2);
+            CalendarInput.Click();
+            GetTomorrow().Click();
         }
 
-        public MainPage SubmitReturnDate()
+        public void FillRouteWithSameCities()
         {
-            Helper.WaitElementToBeClickable(driver, buttonLocator, 10);
-            Helper.ScrollToElement(driver, searchButton);
-            searchButton.Click();
-            return this;
+            route = RouteCreator.WithSameCities();
+            DepartureCity.SendKeys(route.DepartureCity);
+            ArrivalCity.SendKeys(route.ArrivalCity);
+            Body.Click(2);
         }
 
-        public MainPage Submit()
+        public void FindRoute()
         {
-            Helper.ScrollToElement(driver, searchButton);
-            searchButton.Click();
-            return this;
+            FillRouteWithoutDate();
+            Body.Click(2);
+            ViewDepartureButton.Click();
         }
 
-        public SelectTheTicketPage SubmitValidValue()
+        public void SearchEmpty()
         {
-            Helper.ScrollToElement(driver, searchButton);
-            searchButton.Click();
-            return new SelectTheTicketPage(driver);
+            SearchNavButton.Click();
+            SearchButton.Click();
         }
 
-        public MainPage ReturnSearchClick()
+        public void IncrementToNinePassanger()
         {
-            returnButton.Click();
-            return this;
+            Body.Click(2);
+            IncrementPassangersNumberButton.Click(9);
         }
 
-        public MainPage SetEqualsReturnDateAndDepartureDate()
+        public void OpenCalendar()
         {
-            Helper.ScrollToValue(driver,250);
-            Helper.WaitElementToBeClickable(driver, returnDatePickerLocator, 10);
-            returnDatePicker.Click();
-            Helper.WaitElementToBeClickable(driver, currentDateLocator, 10);
-            currentDate.Click();
-            return this;
-
+            ArrivalCity.Click();
+            CalendarInput.Click();
         }
 
-        public string GetErrorMessage()
+        public void ChoosePassedDeparture()
         {
-            return errorMessage.Text;
+            MidnightTimePicker.Click();
+            ViewDepartureButton.Click();
         }
 
-        public string GetAlertErrorMessage()
+        public void EnterCustomerCardNumber(string number)
         {
-            return driver.SwitchTo().Alert().Text;
+            DepartureCity.Click();
+            Body.Click();
+            AddCustomerCardButton.Click();
+            CustomerCardInput.SendKeys(number);
         }
 
+        public void TriggerForm()
+        {
+            ArrivalCity.SendKeys("some text");
+            ArrivalCity.Clear();
+        }
+
+        public IWebElement GetFourthMonthInFuture()
+        {
+            NextMonthButton.Click(4);
+            return GetWebElement(".//*[@class='row travel-planner-container']/div[1]/form[1]/div[1]/div[3]/div[2]/span[1]/span[1]/div[1]/div[2]/div[2]");
+        }
+
+        public IWebElement GetYesterday()
+        {
+            return GetWebElement(".//*[@class='allDays']//button[text()='{DateTime.Now.AddDays(-1).Day}']");
+        }
+
+        public IWebElement GetTomorrow()
+        {
+            return GetWebElement(".//*[@class='allDays']//button[text()='{DateTime.Now.AddDays(1).Day}']");
+        }
     }
 }
