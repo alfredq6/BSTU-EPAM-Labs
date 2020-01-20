@@ -7,7 +7,7 @@ namespace Framework.Logging
 {
     public class Logger
     {
-        public static ILog Log { get; } = LogManager.GetLogger("LOGGER");
+        public static ILog Log = LogManager.GetLogger("LOGGER");
 
         public static void InitLogger()
         {

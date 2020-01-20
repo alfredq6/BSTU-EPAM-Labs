@@ -143,17 +143,17 @@ namespace Framework.Pages
         public IWebElement GetFourthMonthInFuture()
         {
             NextMonthButton.Click(4);
-            return GetWebElement($".//*[@class='row travel-planner-container']/div[1]/form[1]/div[1]/div[3]/div[2]/span[1]/span[1]/div[1]/div[2]/div[2]");
+            return GetWebElement(".//*[@class='row travel-planner-container']/div[1]/form[1]/div[1]/div[3]/div[2]/span[1]/span[1]/div[1]/div[2]/div[2]");
         }
 
         public IWebElement GetYesterday()
         {
-            return GetWebElement($".//*[@class='allDays']//button[text()='{DateTime.Now.AddDays(-1).Day}']");
+            return GetWebElement(".//*[@class='allDays']//button[text()='{DateTime.Now.AddDays(-1).Day}']");
         }
 
         public IWebElement GetTomorrow()
         {
-            return GetWebElement($".//*[@class='allDays']//button[text()='{DateTime.Now.AddDays(1).Day}']");
+            return GetWebElement(".//*[@class='allDays']//button[text()='{DateTime.Now.AddDays(1).Day}']");
         }
     }
 }
