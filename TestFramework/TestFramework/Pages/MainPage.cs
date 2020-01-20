@@ -3,6 +3,7 @@ using TestFramework.Services;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.PageObjects;
 using TestFramework.Extensions;
+using System;
 
 namespace TestFramework.Pages
 {
@@ -146,12 +147,12 @@ namespace TestFramework.Pages
 
         public IWebElement GetYesterday()
         {
-            return GetWebElement(".//*[@class='allDays']//button[text()='{DateTime.Now.AddDays(-1).Day}']");
+            return GetWebElement(".//*[@class='allDays']//button[text()=" + DateTime.Now.AddDays(-1).Day + "]");
         }
 
         public IWebElement GetTomorrow()
         {
-            return GetWebElement(".//*[@class='allDays']//button[text()='{DateTime.Now.AddDays(1).Day}']");
+            return GetWebElement(".//*[@class='allDays']//button[text()=" + DateTime.Now.AddDays(1).Day + "]");
         }
     }
 }

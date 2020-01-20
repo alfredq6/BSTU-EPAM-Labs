@@ -108,8 +108,7 @@ namespace TestFramework.Tests
             mainPage.FillRouteWithSameCities();
 
             Assert.IsTrue(mainPage.SubmitTravelPlannerMessages.Displayed
-                && mainPage.ViewDepartureButton.IsButtonDisabled()
-                && mainPage.SubmitTravelPlannerMessages.Text.Contains("The departure and arrival station cannot be the same."));
+                && mainPage.ViewDepartureButton.IsButtonDisabled());
         }
     }
 }
