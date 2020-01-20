@@ -32,11 +32,11 @@ namespace Framework.Tests
         {
             if(TestContext.CurrentContext.Result.Outcome!=ResultState.Success)
             {
-                string screenFolder = AppDomain.CurrentDomain.BaseDirectory + @"\screens";
-                Directory.CreateDirectory(screenFolder);
-                var screen = ((ITakesScreenshot)Driver).GetScreenshot();
-                screen.SaveAsFile(screenFolder + @"\screen" + DateTime.Now.ToString("yy-MM-dd_hh-mm-ss") + ".png",
-                    ScreenshotImageFormat.Png);
+                //string screenFolder = AppDomain.CurrentDomain.BaseDirectory + @"\screens";
+                //Directory.CreateDirectory(screenFolder);
+                //var screen = ((ITakesScreenshot)Driver).GetScreenshot();
+                //screen.SaveAsFile(screenFolder + @"\screen" + DateTime.Now.ToString("yy-MM-dd_hh-mm-ss") + ".png",
+                //    ScreenshotImageFormat.Png);
                 Logger.Log.Error("Error: " + TestContext.CurrentContext.Result.Message);
             }
             Logger.Log.Info("Test completed");
